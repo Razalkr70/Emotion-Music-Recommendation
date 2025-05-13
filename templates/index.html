@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emotion-Based Music Recommender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .video-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    img {
+      border-radius: 8px;
+    }
+    #status-msg {
+      font-style: italic;
+      color: #555;
+      margin-top: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎵 Emotion-Based Music Recommender</h1>
+
+  <div class="video-container">
+    <img src="{{ url_for('video_feed') }}" width="500" alt="Live Emotion Detection">
+    <p id="status-msg">Loading recommendations...</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        {% for head in headings %}
+          <th>{{ head }}</th>
+        {% endfor %}
+        <th>Watch</th>
+      </tr>
+    </thead>
+    <tbody id="music-table-body">
+      <!-- JavaScript will insert recommended songs here -->
+    </tbody>
+  </table>
+
+  <script>
+    async function loadSongs() {
+      try {
+        const emotionRes = await fetch('/current_emotion');
+        const { emotion } = await emotionRes.json();
+
+        const res = await fetch(`/recommend/${emotion}`);
+        const songs = await res.json();
+
+        const tbody = document.getElementById('music-table-body');
+        tbody.innerHTML = "";
+
+        songs.forEach(song => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td><img src="${song.thumbnail_url}" alt="thumb" width="100" /></td>
+            <td>${song.Name}</td>
+            <td>${song.Artist}</td>
+            <td>${song.Album}</td>
+            <td><a href="${song.song_url}" target="_blank">Watch</a></td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        document.getElementById('status-msg').innerText = `😄 Showing songs based on current emotion`;
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById('status-msg').innerText = "⚠️ Unable to load recommendations.";
+      }
+    }
+
+    loadSongs();
+    setInterval(loadSongs, 10000); // Refresh every 10 seconds
+  </script>
+
+</body>
+</html>

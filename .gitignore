@@ -1,0 +1,9 @@
+myenv/
+__pycache__/
+*.pyc
+*.pyd
+*.h5
+*.dll
+*.so
+*.exe
+.DS_Store

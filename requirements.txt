@@ -1,0 +1,11 @@
+Flask
+spotipy
+pandas
+gunicorn
+opencv_python_headless
+numpy
+Pillow
+tensorflow
+#client_id = '3d4002521abc449f8abed2cf41905bb8'
+# client_secret = 'c94029168d6040c7bea1b54a99f915a1'
+# redirect_uri = "http://localhost:8888/callback/"

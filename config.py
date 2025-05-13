@@ -1,0 +1,3 @@
+SPOTIPY_CLIENT_ID = '3d4002521abc449f8abed2cf41905bb8'
+SPOTIPY_CLIENT_SECRET = 'c94029168d6040c7bea1b54a99f915a1'
+SPOTIPY_REDIRECT_URI = 'http://localhost:8888/callback/'  # Or your production URL
