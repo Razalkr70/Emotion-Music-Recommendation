@@ -34,7 +34,7 @@ This project leverages **OpenCV** and **Convolutional Neural Networks (CNN)** fo
 
 2. **Install dependencies:**
 
-3. **Set up API keys for YouTube Data API or Spotify API:**
+3. **Set up API keys for YouTube Data API **
 4. **Run the App**
 
 
